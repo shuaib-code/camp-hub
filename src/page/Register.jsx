@@ -6,6 +6,7 @@ import useAuth from "../hook/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import axiosPublic from "../config/axios.config";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [role, setRole] = useState("participant");
@@ -152,6 +153,9 @@ const Register = () => {
   );
   return (
     <div className="font-inter grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+      <Helmet>
+        <title>CampHUB | Register</title>
+      </Helmet>
       {register}
       <div className="col-span-2">
         <WelcomeBanner></WelcomeBanner>
