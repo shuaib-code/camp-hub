@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply focus:outline-none text-white bg-primary/90 hover:bg-primary focus:ring-4 focus:ring-primary/20 font-medium rounded-lg text-sm px-5 py-2.5;
+  }
+  .btn-outline{
+    @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-primary bg-primary bg-opacity-5 focus:outline-none rounded-lg border border-primary  hover:bg-opacity-10 focus:z-10 focus:ring-4 focus:ring-gray-200;
+  }
+  .rest-nav{
+    @apply block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0;
+  }
+  .active-nav{
+    @apply block py-2 px-3 text-primary border-primary border-2 md:border-0 lg:border-0 rounded md:bg-transparent md:text-primary md:p-0;
+  }
+}
