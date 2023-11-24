@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       colors:{
-        'primary':'#16B364'
+        'primary':'#16B364',
+        'dash':'#F9FAFB'
       },
       fontFamily:{
       mono: ['Roboto Mono', 'monospace'],
