@@ -2,13 +2,20 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import WelcomeBanner from "../components/banner/WelcomeBanner";
 import { BiArrowBack } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
 import useAuth from "../hook/useAuth";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import axiosPublic from "../config/axios.config";
 
 const Register = () => {
-  const { withGoogle, register: createUser, setProfile } = useAuth();
+  const [role, setRole] = useState("participant");
+  const { register: createUser, setProfile } = useAuth();
   const navigate = useNavigate();
+  const roleList = [
+    { value: "participant", role: "Participant" },
+    { value: "professional", role: "Healthcare Professional" },
+    { value: "organizer", role: "Organizer" },
+  ];
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -18,34 +25,30 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const specialCharactersPattern = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+    // const specialCharactersPattern = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
 
-    if (!specialCharactersPattern.test(password)) {
-      toast.error("Password should contain al least 1 special caracter");
-    } else if (!/[A-Z]/.test(password)) {
-      toast.error("Password should have at least 1 Uppercase");
-    } else if (!/[0-9]/.test(password)) {
-      toast.error("Password should contain at least 1 numeric alpabet");
-    }
+    // if (!specialCharactersPattern.test(password)) {
+    //   toast.error("Password should contain al least 1 special caracter");
+    // } else if (!/[A-Z]/.test(password)) {
+    //   toast.error("Password should have at least 1 Uppercase");
+    // } else if (!/[0-9]/.test(password)) {
+    //   toast.error("Password should contain at least 1 numeric alpabet");
+    // }
 
     createUser(email, password)
       .then(() => {
         setProfile(name, url)
           .then(() => {
-            toast.success("Registration successfull");
             navigate("/");
           })
           .catch(() => toast.error("Something went worng."));
+        axiosPublic
+          .post("/register", { name, url, email, password, role })
+          .then((r) =>
+            r.data._id ? toast.success("Registration Successfull") : null
+          );
       })
       .catch(() => toast.error("Something went worng."));
-  };
-  const handleGoogle = () => {
-    withGoogle()
-      .then(() => {
-        toast.success("Registration successfull");
-        navigate("/");
-      })
-      .catch(() => toast.error("Something went worng"));
   };
 
   const form = (
@@ -56,7 +59,7 @@ const Register = () => {
           <input
             type="text"
             name="userName"
-            className="mt-1 px-3 py-2.5 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1"
+            className="form-input"
             placeholder="enter your full name"
             required
           />
@@ -68,10 +71,26 @@ const Register = () => {
           <input
             type="text"
             name="url"
-            className="mt-1 px-3 py-2.5 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1"
+            className="form-input"
             placeholder="enter you profile picture url"
             required
           />
+        </label>
+        <label className="block">
+          <span className="block mb-2 text-sm font-medium text-slate-700">
+            Who are you?
+          </span>
+          <select
+            onChange={(e) => setRole(e.target.value)}
+            id="role"
+            className="form-input"
+          >
+            {roleList.map((e) => (
+              <option key={e.value} value={e.value}>
+                {e.role}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="block">
           <span className="block text-sm font-medium text-slate-700">
@@ -80,7 +99,7 @@ const Register = () => {
           <input
             type="email"
             name="email"
-            className="mt-1 px-3 py-2.5 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1"
+            className="form-input"
             placeholder="you@example.com"
             required
           />
@@ -92,7 +111,7 @@ const Register = () => {
           <input
             type="password"
             name="password"
-            className="mt-1 px-3 py-2.5 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1"
+            className="form-input"
             placeholder="enter your password"
             required
           />
@@ -100,7 +119,7 @@ const Register = () => {
         <label className="block">
           <input
             type="submit"
-            className="mt-1 px-3 py-2.5 text-white font-semibold bg-primary border shadow-sm border-slate-30 block w-full rounded-md sm:text-sm "
+            className="btn-primary w-full"
             value="Continue"
           />
         </label>
@@ -129,21 +148,6 @@ const Register = () => {
         </p>
       </div>
       {form}
-      <div>
-        <p className="font-semibold text-xs text-center">Or</p>
-        <div
-          className="my-7 px-3 py-2.5 text-primary font-semibold text-center text-lg bg-white border-2 shadow-sm border-primary  block w-full rounded-md sm:text-sm"
-          placeholder="you@example.com"
-        >
-          <div
-            onClick={handleGoogle}
-            className="flex cursor-pointer justify-center items-center gap-3"
-          >
-            <FcGoogle className="text-xl"></FcGoogle>
-            <p>Continue with Google</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
   return (
@@ -152,7 +156,7 @@ const Register = () => {
       <div className="col-span-2">
         <WelcomeBanner></WelcomeBanner>
       </div>
-      <Toaster position="top-center"></Toaster>
+      {/* <Toaster position="top-center"></Toaster> */}
     </div>
   );
 };
