@@ -4,9 +4,11 @@ import toast from "react-hot-toast";
 import Loader from "../../components/Loader";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import useAuth from "../../hook/useAuth";
 
 const AddCamp = () => {
   const [submit, setSubmit] = useState(1);
+  const { user } = useAuth();
   const professional = useQuery({
     queryKey: ["getProfessinalSelcet"],
     queryFn: () => axiosPublic.get("/selectprofessional").then((r) => r.data),
@@ -21,6 +23,7 @@ const AddCamp = () => {
     });
     if (imgURl.data.success) {
       data.image = imgURl.data.data.display_url;
+      data.email = user.email;
     } else {
       toast.error("Something went worng with image.");
     }
@@ -49,7 +52,7 @@ const AddCamp = () => {
     <div className="w-full">
       <p className="form-title">Add new Camp</p>
       <div className="mx-2 md:px-10 lg:mx-20 mt-9">
-        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-1" onSubmit={handleSubmit(onSubmit)}>
           {formData.map((e) => (
             <label className="block" key={e.field}>
               <span className="block text-sm font-medium text-slate-700">
@@ -98,7 +101,7 @@ const AddCamp = () => {
               ))}
             </select>
           </label>
-          <div className="grid pb-5">
+          <div className="grid pb-5 pt-4">
             <input
               onClick={() => setSubmit(0)}
               className="btn-primary"
