@@ -40,7 +40,7 @@ const Register = () => {
       .then(() => {
         setProfile(name, url)
           .then(() => {
-            navigate("/");
+            navigate(`/dashboard/${role}-profile/profile`);
           })
           .catch(() => toast.error("Something went worng."));
         axiosPublic

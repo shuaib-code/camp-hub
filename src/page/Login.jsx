@@ -2,12 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import WelcomeBanner from "../components/banner/WelcomeBanner";
 import { BiArrowBack } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
 import toast, { Toaster } from "react-hot-toast";
 import useAuth from "../hook/useAuth";
 
 const Login = () => {
-  const { withGoogle, withEmail } = useAuth();
+  const { withEmail } = useAuth();
   const navigate = useNavigate();
   const handleForm = (e) => {
     e.preventDefault();
@@ -15,29 +14,21 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const specialCharactersPattern = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+    // const specialCharactersPattern = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
 
-    if (!specialCharactersPattern.test(password)) {
-      toast.error("Password should contain al least 1 special caracter");
-    } else if (!/[A-Z]/.test(password)) {
-      toast.error("Password should have at least 1 Uppercase");
-    } else if (!/[0-9]/.test(password)) {
-      toast.error("Password should contain at least 1 numeric alpabet");
-    }
+    // if (!specialCharactersPattern.test(password)) {
+    //   toast.error("Password should contain al least 1 special caracter");
+    // } else if (!/[A-Z]/.test(password)) {
+    //   toast.error("Password should have at least 1 Uppercase");
+    // } else if (!/[0-9]/.test(password)) {
+    //   toast.error("Password should contain at least 1 numeric alpabet");
+    // }
     withEmail(email, password)
       .then(() => {
         toast.success("Log in successfull");
         navigate("/");
       })
       .catch(() => toast.error("Something went worng."));
-  };
-  const handleGoogle = () => {
-    withGoogle()
-      .then(() => {
-        toast.success("Log in successfull");
-        navigate("/");
-      })
-      .catch(() => toast.error("Something went worng"));
   };
 
   const form = (
@@ -99,21 +90,6 @@ const Login = () => {
         </p>
       </div>
       {form}
-      <div>
-        <p className="font-semibold text-xs text-center">Or</p>
-        <div
-          className="my-7 px-3 py-2.5 text-primary font-semibold text-center text-lg bg-white border-2 shadow-sm border-primary  block w-full rounded-md sm:text-sm"
-          placeholder="you@example.com"
-        >
-          <div
-            onClick={handleGoogle}
-            className="flex justify-center items-center gap-3"
-          >
-            <FcGoogle className="text-xl"></FcGoogle>
-            <p>Continue with Google</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
   return (

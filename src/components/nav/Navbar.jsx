@@ -18,9 +18,9 @@ const Navbar = () => {
     { name: "Available Camp", path: "availableCamp" },
     { name: "Dashboard", path: `dashboard/${role}-profile/profile` },
   ];
-  if (!role) {
-    return null;
-  }
+  // if (!role) {
+  //   return null;
+  // }
   return (
     <>
       <nav className="border-b border-gray-200">

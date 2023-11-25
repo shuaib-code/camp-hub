@@ -9,7 +9,7 @@ const Footer = () => {
   ];
   const restNavList = [
     { name: "Available Camp", path: "availableCamp" },
-    { name: "Dashboard", path: "dashboard" },
+    // { name: "Dashboard", path: "dashboard" },
   ];
   return (
     <footer className="bg-white rounded-lg border-t font-slab max-w-5xl mx-auto">

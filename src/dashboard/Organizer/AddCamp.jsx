@@ -2,11 +2,16 @@ import { useForm } from "react-hook-form";
 import axiosPublic from "../../config/axios.config";
 import toast from "react-hot-toast";
 import Loader from "../../components/Loader";
-import useProfessional from "../../hook/useProfessional";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const AddCamp = () => {
-  const { register, handleSubmit } = useForm();
-  const professional = useProfessional();
+  const [submit, setSubmit] = useState(1);
+  const professional = useQuery({
+    queryKey: ["getProfessinalSelcet"],
+    queryFn: () => axiosPublic.get("/selectprofessional").then((r) => r.data),
+  });
+  const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
     const imgFile = { image: data.image[0] };
     const imgURl = await axiosPublic.post(import.meta.env.VITE_ImgBB, imgFile, {
@@ -19,9 +24,14 @@ const AddCamp = () => {
     } else {
       toast.error("Something went worng with image.");
     }
+    axiosPublic.post("/addcamp", data).then((r) => {
+      r.data._id ? toast.success("Camp Added Successfully") : null;
+      reset();
+      setSubmit(1);
+    });
+
     console.log(data);
   };
-  console.log(professional);
   const formData = [
     { label: "Camp Name", field: "campName" },
     { label: "Camp Fee", field: "fee" },
@@ -31,7 +41,7 @@ const AddCamp = () => {
     { label: "Specialized Service", field: "service" },
     { label: "Target Audience", field: "target" },
   ];
-  if (import.meta.env.VITE_ImgBB) {
+  if (professional.isLoading) {
     return <Loader />;
   }
 
@@ -55,7 +65,7 @@ const AddCamp = () => {
           ))}
           <label className="block">
             <span className="block text-sm font-medium text-slate-700">
-              Select Image form Device
+              Select Image
             </span>
             <input
               className="mt-2 rounded-lg border"
@@ -65,20 +75,36 @@ const AddCamp = () => {
           </label>
           <label className="block">
             <span className="block text-sm font-medium text-slate-700">
+              Description
+            </span>
+            <textarea
+              className="form-input"
+              rows="6"
+              {...register("des", { required: true })}
+            />
+          </label>
+          <label className="block">
+            <span className="block text-sm font-medium text-slate-700">
               Select Healthcare Professional
             </span>
             <select
               className="form-input"
-              {...register("Title", { required: true })}
+              {...register("professional", { required: true })}
             >
-              <option value="Mr">Mr</option>
-              <option value="Mrs">Mrs</option>
-              <option value="Miss">Miss</option>
-              <option value="Dr">Dr</option>
+              {professional?.data?.map((e) => (
+                <option key={e._id} value={e._id}>
+                  {e.name}
+                </option>
+              ))}
             </select>
           </label>
           <div className="grid pb-5">
-            <input className="btn-primary" type="submit" />
+            <input
+              onClick={() => setSubmit(0)}
+              className="btn-primary"
+              type="submit"
+              value={`${submit ? "Submit" : "Submiting..."}`}
+            />
           </div>
         </form>
       </div>
