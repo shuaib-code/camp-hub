@@ -1,7 +1,31 @@
+import Swal from "sweetalert2";
+import axiosPublic from "../../../config/axios.config";
+import useCamp from "../../../hook/useCamp";
 import EditCampModal from "./EditCampModal";
 
 const Manage = ({ camp, i }) => {
+  const { refetch } = useCamp();
   const { campName, date, _id } = camp;
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#16B364",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/deletecamp?id=${_id}`).then(() => refetch());
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
   return (
     <div
       className={`${
@@ -11,7 +35,9 @@ const Manage = ({ camp, i }) => {
       <p className="table-text">{campName}</p>
       <p className="table-text">{date}</p>
       <EditCampModal camp={camp} />
-      <button className="btn-danger">Delete</button>
+      <button className="btn-danger" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 };
