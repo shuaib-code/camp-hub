@@ -3,19 +3,25 @@ import Logo from "../Logo";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 import PopClick from "./PopClick";
+import useRole from "../../hook/useRole";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
   const [pop, setPop] = useState(false);
   const { user } = useAuth();
+  const role = useRole();
   const navList = [
     { name: "Home", path: "/" },
     { name: "Contact", path: "contact" },
   ];
   const restNavList = [
     { name: "Available Camp", path: "availableCamp" },
-    { name: "Dashboard", path: "dashboard" },
+    { name: "Dashboard", path: `dashboard/${role}-profile/profile` },
   ];
+  console.log(restNavList);
+  if (!role) {
+    return null;
+  }
   return (
     <>
       <nav className="border-b border-gray-200">

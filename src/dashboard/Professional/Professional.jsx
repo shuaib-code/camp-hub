@@ -1,12 +1,15 @@
 import { Helmet } from "react-helmet";
+import { Outlet } from "react-router-dom";
+import SideBar from "../SideBar";
 
 const Professional = () => {
   return (
-    <div>
+    <div className="flex">
       <Helmet>
         <title>Dashboard | Professional</title>
       </Helmet>
-      <h1>Professinal</h1>
+      <SideBar />
+      <Outlet />
     </div>
   );
 };

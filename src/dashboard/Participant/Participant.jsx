@@ -1,12 +1,15 @@
 import { Helmet } from "react-helmet";
+import { Outlet } from "react-router-dom";
+import SideBar from "../SideBar";
 
 const Participant = () => {
   return (
-    <div>
+    <div className="flex">
       <Helmet>
         <title>Dashboard | Participant</title>
       </Helmet>
-      <h1>Participant</h1>
+      <SideBar />
+      <Outlet />
     </div>
   );
 };
