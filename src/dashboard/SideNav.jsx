@@ -12,7 +12,7 @@ const SideNav = () => {
   ];
   const navListPart = [
     { name: "Profile", path: "profile" },
-    { name: "Registerd Capm", path: "registered-camp" },
+    { name: "Registerd Camp", path: "registered-camp" },
     { name: "Payment History", path: "payment-history" },
     { name: "Feedback and Ratings", path: "feedback-and-ratings" },
   ];

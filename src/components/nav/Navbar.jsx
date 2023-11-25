@@ -18,7 +18,6 @@ const Navbar = () => {
     { name: "Available Camp", path: "availableCamp" },
     { name: "Dashboard", path: `dashboard/${role}-profile/profile` },
   ];
-  console.log(restNavList);
   if (!role) {
     return null;
   }

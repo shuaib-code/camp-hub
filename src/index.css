@@ -36,4 +36,7 @@
   .side-active-nav {
     @apply flex items-center p-1 pl-4 border-l-4 border-primary text-gray-900 rounded-r-lg bg-gray-100;
   }
+  .form-title {
+    @apply text-2xl font-bold text-center mt-2 text-primary
+  }
 }
