@@ -23,7 +23,7 @@ const AvailableCampCard = ({ camp }) => {
   }
   return (
     <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <img className="rounded-t-lg" src={image} alt="" />
+      <img className="rounded-t-lg object-contain w-full" src={image} alt="" />
 
       <div className="p-5">
         <h2 className="text-lg font-semibold">{campName}</h2>

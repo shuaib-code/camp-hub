@@ -3,6 +3,7 @@ import axiosPublic from "../../config/axios.config";
 import useAuth from "../../hook/useAuth";
 import Loader from "../../components/Loader";
 import DataTable, { createTheme } from "react-data-table-component";
+import PaymentModal from "../../components/PaymentModal";
 
 const RegisteredCamp = () => {
   const { user } = useAuth();
@@ -18,14 +19,11 @@ const RegisteredCamp = () => {
   });
   if (registerd.isLoading) {
     return (
-      <div className="py-12">
+      <div className="py-12 w-full">
         <Loader />
       </div>
     );
   }
-  const handlePay = (fee) => {
-    console.log(fee);
-  };
   const columns = [
     {
       name: "Camp Name",
@@ -44,13 +42,11 @@ const RegisteredCamp = () => {
       name: "Payment",
       selector: (row) => row.pay,
       width: "100px",
-      cell: ({ pay, fee }) =>
+      cell: ({ pay, fee, id }) =>
         pay == 1 ? (
           <p>Paid</p>
         ) : (
-          <button onClick={() => handlePay(fee)} className="btn-small">
-            Pay
-          </button>
+          <PaymentModal fee={fee} id={id} refech={registerd.refetch} />
         ),
     },
     {
@@ -66,6 +62,7 @@ const RegisteredCamp = () => {
     fee: e.fee,
     pay: e.pay,
     status: e.status,
+    id: e,
   }));
   const customStyles = {
     headCells: {
