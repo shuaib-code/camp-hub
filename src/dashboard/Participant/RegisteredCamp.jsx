@@ -4,6 +4,8 @@ import useAuth from "../../hook/useAuth";
 import Loader from "../../components/Loader";
 import DataTable, { createTheme } from "react-data-table-component";
 import PaymentModal from "../../components/PaymentModal";
+import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const RegisteredCamp = () => {
   const { user } = useAuth();
@@ -17,6 +19,30 @@ const RegisteredCamp = () => {
       return res.data;
     },
   });
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#16B364",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/registercampdelete?id=${id}`).then((r) => {
+          if (r.data.deletedCount) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            registerd.refetch();
+          }
+        });
+      }
+    });
+  };
   if (registerd.isLoading) {
     return (
       <div className="py-12 w-full">
@@ -55,6 +81,20 @@ const RegisteredCamp = () => {
       width: "110px",
       cell: ({ status }) => <p>{status == 1 ? "Confirmed" : "Pending"}</p>,
     },
+    {
+      name: "Delete",
+      selector: (row) => row.status,
+      width: "100px",
+      cell: ({ pay, deleteId }) => (
+        <button
+          disabled={pay === "1"}
+          className={`${pay == "1" ? "cursor-not-allowed" : null} btn-danger`}
+          onClick={() => handleDelete(deleteId)}
+        >
+          <MdDelete />
+        </button>
+      ),
+    },
   ];
   const data = registerd?.data?.map((e) => ({
     campName: e.campName,
@@ -63,6 +103,7 @@ const RegisteredCamp = () => {
     pay: e.pay,
     status: e.status,
     id: e,
+    deleteId: e._id,
   }));
   const customStyles = {
     headCells: {
