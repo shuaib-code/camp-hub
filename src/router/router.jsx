@@ -21,6 +21,7 @@ import AddCamp from "../dashboard/Organizer/AddCamp";
 import AddUpcomingCamp from "../dashboard/Organizer/AddUpcomingCamp";
 import ManageCamp from "../dashboard/Organizer/ManageCamp";
 import ManageUpcomingCamp from "../dashboard/Organizer/ManageUpcomingCamp";
+import CampDetails from "../page/CampDetails";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "camp-details/:campId",
+        element: <CampDetails />,
       },
     ],
   },

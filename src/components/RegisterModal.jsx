@@ -2,23 +2,45 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axiosPublic from "../config/axios.config";
 import useAuth from "../hook/useAuth";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-const RegisterModal = ({ camp }) => {
+const RegisterModal = ({ camp, refetch }) => {
   const { campName, date, time, fee, _id } = camp;
+  const [submit, setSubmit] = useState(1);
   const [modal, setModal] = useState(0);
+  const navigate = useNavigate();
   const { user } = useAuth();
-  const Register = async () => {
-    const registerBody = { campId: _id, email: user?.email };
-    axiosPublic.post(`/registercamp`, registerBody).then((r) => {
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = async (data) => {
+    if (user) {
+      data.email = user.email;
+      data.participantName = user.displayName;
+      data.campId = _id;
+      data.pay = 0;
+      data.status = 0;
+    } else {
+      return toast.error("Something went worng.");
+    }
+    axiosPublic.post(`/registercamp`, data).then((r) => {
       r.data._id ? toast.success("Registration successfull") : null;
+      reset();
+      setSubmit(1);
       setModal(0);
+      refetch();
+      navigate("/availableCamp");
     });
   };
+
   const formData = [
-    { label: "Camp Name", field: "campName", value: `${campName}` },
-    { label: "Camp Fee", field: "fee", value: `${fee}` },
-    { label: "Date", field: "date", value: `${date}` },
-    { label: "Time", field: "time", value: `${time}` },
+    { label: "Phone", field: "phone" },
+    { label: "Address", field: "address" },
+    { label: "Health Problem", field: "problem" },
+  ];
+  const gender = [
+    { value: "male", name: "Male" },
+    { value: "female", name: "Female" },
+    { value: "Custom", name: "custom" },
   ];
   return (
     <div>
@@ -76,28 +98,54 @@ const RegisterModal = ({ camp }) => {
             {/* <!-- Modal body --> */}
             <div className="p-4 md:p-5">
               <div className="">
-                <form className="space-y-1">
+                <form className="space-y-1" onSubmit={handleSubmit(onSubmit)}>
+                  <label className="block">
+                    <span className="block text-sm font-medium text-slate-700">
+                      Your Name
+                    </span>
+                    <p className="form-input">{user.displayName}</p>
+                  </label>
                   {formData.map((e) => (
                     <label className="block" key={e.field}>
                       <span className="block text-sm font-medium text-slate-700">
                         {e.label}
                       </span>
-                      <p className="form-input">{e.value}</p>
+                      <input
+                        className="form-input"
+                        type="text"
+                        placeholder={`Enter ${e.label}`}
+                        {...register(e.field, { required: true })}
+                      />
                     </label>
                   ))}
-                  {/* <div className="grid pb-5 pt-3">
+                  <label className="block">
+                    <span className="block text-sm font-medium text-slate-700">
+                      Select Gender
+                    </span>
+                    <select
+                      className="form-input"
+                      {...register("gender", { required: true })}
+                    >
+                      {gender.map((e) => (
+                        <option key={e.value} value={e.value}>
+                          {e.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <div className="grid pb-5 pt-4">
                     <input
                       onClick={() => setSubmit(0)}
                       className="btn-primary"
                       type="submit"
-                      value={`${submit ? "Submit" : "Submiting..."}`}
+                      value={`${submit ? "Register" : "Registering..."}`}
                     />
-                  </div> */}
+                  </div>
                 </form>
               </div>
             </div>
             {/* <!-- Modal footer --> */}
-            <div className="flex justify-end items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+            {/* <div className="flex justify-end items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
                 onClick={Register}
                 data-modal-hide="default-modal"
@@ -113,8 +161,8 @@ const RegisterModal = ({ camp }) => {
                 className="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
               >
                 Cancel
-              </button>
-            </div>
+              </button> */}
+            {/* </div> */}
           </div>
         </div>
       </div>
