@@ -13,12 +13,17 @@ const RegisterModal = ({ camp, refetch }) => {
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
+    setSubmit(0);
     if (user) {
       data.email = user.email;
       data.participantName = user.displayName;
       data.campId = _id;
       data.pay = 0;
       data.status = 0;
+      data.campName = campName;
+      data.fee = fee;
+      data.date = date;
+      data.time = time;
     } else {
       return toast.error("Something went worng.");
     }
@@ -135,7 +140,6 @@ const RegisterModal = ({ camp, refetch }) => {
                   </label>
                   <div className="grid pb-5 pt-4">
                     <input
-                      onClick={() => setSubmit(0)}
                       className="btn-primary"
                       type="submit"
                       value={`${submit ? "Register" : "Registering..."}`}

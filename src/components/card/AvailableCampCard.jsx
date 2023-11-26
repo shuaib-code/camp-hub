@@ -7,7 +7,7 @@ import Loader from "../Loader";
 const AvailableCampCard = ({ camp }) => {
   const { image, campName, date, time, fee, location, target, _id } = camp;
   const count = useQuery({
-    queryKey: ["findAllCamp", _id],
+    queryKey: ["findAllCampCounter", _id],
     queryFn: async () => {
       const res = await axiosPublic.get(`/findpartcipant?campId=${_id}`);
 
