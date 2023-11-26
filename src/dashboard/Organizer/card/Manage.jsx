@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import axiosPublic from "../../../config/axios.config";
 import useCamp from "../../../hook/useCamp";
 import EditCampModal from "./EditCampModal";
+import { MdDelete } from "react-icons/md";
 
 const Manage = ({ camp, i }) => {
   const { refetch } = useCamp();
@@ -36,7 +37,7 @@ const Manage = ({ camp, i }) => {
       <p className="table-text">{date}</p>
       <EditCampModal camp={camp} />
       <button className="btn-danger" onClick={handleDelete}>
-        Delete
+        <MdDelete></MdDelete>
       </button>
     </div>
   );

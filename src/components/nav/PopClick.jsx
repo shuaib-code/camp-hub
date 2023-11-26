@@ -17,7 +17,7 @@ const PopClick = ({ pop, setPop, show }) => {
       <img
         onClick={() => setPop(!pop)}
         src={user?.photoURL}
-        className="w-8 h-8 rounded-full"
+        className="w-8 h-8 rounded-full object-cover"
         referrerPolicy="no-referrer"
       />
       <div

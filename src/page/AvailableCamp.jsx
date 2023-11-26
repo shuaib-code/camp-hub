@@ -1,9 +1,9 @@
-import useCamp from "../hook/useCamp";
+import useAllCamp from "../hook/useAllCamp";
 import Loader from "../components/Loader";
 import AvailableCampCard from "../components/card/AvailableCampCard";
 
 const AvailableCamp = () => {
-  const { allCamp, isLoading } = useCamp();
+  const { allCamp, isLoading } = useAllCamp();
   if (isLoading) {
     return <Loader />;
   }
