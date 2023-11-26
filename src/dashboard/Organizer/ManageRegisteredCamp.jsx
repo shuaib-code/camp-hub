@@ -1,20 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosPublic from "../../config/axios.config";
-import useAuth from "../../hook/useAuth";
 import Loader from "../../components/Loader";
 import DataTable, { createTheme } from "react-data-table-component";
-import PaymentModal from "../../components/PaymentModal";
 import { MdOutlineCancel } from "react-icons/md";
 import Swal from "sweetalert2";
 
-const RegisteredCamp = () => {
-  const { user } = useAuth();
+const ManageRegisteredCamp = () => {
   const registerd = useQuery({
-    queryKey: ["particimpantRegistered", user?.email],
+    queryKey: ["particimpantRegisteredforOrganizer"],
     queryFn: async () => {
-      const res = await axiosPublic.get(
-        `/findpartcipantregistered?email=${user.email}`
-      );
+      const res = await axiosPublic.get(`/findpartcipantregistered`);
 
       return res.data;
     },
@@ -35,6 +30,30 @@ const RegisteredCamp = () => {
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
+              icon: "success",
+            });
+            registerd.refetch();
+          }
+        });
+      }
+    });
+  };
+  const handleConfirm = async (id) => {
+    Swal.fire({
+      title: "Want to Confirm this Registration?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#16B364",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Confirm it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.post(`/registercampconfirm?id=${id}`).then((r) => {
+          if (r.data.status) {
+            Swal.fire({
+              title: "Confirmed!",
+              text: "This registration has been confirmed.",
               icon: "success",
             });
             registerd.refetch();
@@ -68,32 +87,42 @@ const RegisteredCamp = () => {
       name: "Payment",
       selector: (row) => row.pay,
       width: "100px",
-      cell: ({ pay, fee, id }) =>
-        pay == 1 ? (
-          <p>Paid</p>
-        ) : (
-          <PaymentModal fee={fee} id={id} refech={registerd.refetch} />
-        ),
+      cell: ({ pay }) => (pay == 1 ? <p>Paid</p> : <p>Unpaid</p>),
     },
     {
       name: "Status",
       selector: (row) => row.status,
       width: "110px",
-      cell: ({ status }) => <p>{status == 1 ? "Confirmed" : "Pending"}</p>,
+      cell: ({ status, deleteId }) =>
+        status == 1 ? (
+          <p>Confirmed</p>
+        ) : (
+          <button
+            disabled={status === "1"}
+            className={`${
+              status == "1" ? "cursor-not-allowed" : null
+            } btn-small`}
+            onClick={() => handleConfirm(deleteId)}
+          >
+            Confirm
+          </button>
+        ),
     },
     {
       name: "Cancel",
       selector: (row) => row.status,
       width: "100px",
-      cell: ({ pay, deleteId }) => (
-        <button
-          disabled={pay === "1"}
-          className={`${pay == "1" ? "cursor-not-allowed" : null} btn-danger`}
-          onClick={() => handleDelete(deleteId)}
-        >
-          <MdOutlineCancel />
-        </button>
-      ),
+      cell: ({ pay, deleteId }) =>
+        pay == 1 ? (
+          <button
+            className={`btn-danger`}
+            onClick={() => handleDelete(deleteId)}
+          >
+            <MdOutlineCancel />
+          </button>
+        ) : (
+          <p>Unpaid</p>
+        ),
     },
   ];
   const data = registerd?.data?.map((e) => ({
@@ -148,7 +177,7 @@ const RegisteredCamp = () => {
 
   return (
     <div className="px-2">
-      <h1 className="form-title">Registered Camp</h1>
+      <h1 className="form-title">Manage Registered Camp</h1>
       <h6 className="form-text">
         Total Registerd Camp: {registerd?.data?.length}
       </h6>
@@ -164,4 +193,4 @@ const RegisteredCamp = () => {
   );
 };
 
-export default RegisteredCamp;
+export default ManageRegisteredCamp;

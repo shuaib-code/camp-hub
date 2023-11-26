@@ -61,6 +61,7 @@ const ChackOutForm = ({ fee, id, modal, refech }) => {
           status: paymentIntent.status,
           transiction: paymentIntent.id,
           paid: paymentIntent.created,
+          email: user.email,
         };
         axiosPublic.post(`/paymenthistory?id=${_id}`, history).then(() => {
           toast.success("Payment Successfull");

@@ -8,6 +8,7 @@ const SideNav = () => {
     { name: "Add Camp", path: "add-a-camp" },
     { name: "Add Upcoming Camp", path: "add-upcoming-camp" },
     { name: "Manage Camp", path: "manage-camp" },
+    { name: "Manage Registered Camp", path: "manage-registered-camp" },
     { name: "Manage Upcoming Camp", path: "manage-upcoming-camp" },
   ];
   const navListPart = [

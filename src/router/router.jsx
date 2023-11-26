@@ -22,6 +22,7 @@ import AddUpcomingCamp from "../dashboard/Organizer/AddUpcomingCamp";
 import ManageCamp from "../dashboard/Organizer/ManageCamp";
 import ManageUpcomingCamp from "../dashboard/Organizer/ManageUpcomingCamp";
 import CampDetails from "../page/CampDetails";
+import ManageRegisteredCamp from "../dashboard/Organizer/ManageRegisteredCamp";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
           {
             path: "manage-camp",
             element: <ManageCamp />,
+          },
+          {
+            path: "manage-registered-camp",
+            element: <ManageRegisteredCamp />,
           },
           {
             path: "manage-upcoming-camp",
