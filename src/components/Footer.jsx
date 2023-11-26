@@ -38,7 +38,9 @@ const Footer = () => {
                     key={e.name}
                     to={e.path}
                     className={({ isActive }) =>
-                      isActive ? "active-nav" : "rest-nav"
+                      isActive
+                        ? "text-primary hover:underline me-4 md:me-6"
+                        : "text-black hover:underline me-4 md:me-6"
                     }
                   >
                     {e.name}

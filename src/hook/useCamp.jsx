@@ -4,7 +4,11 @@ import useAuth from "./useAuth";
 
 const useCamp = () => {
   const { user } = useAuth();
-  const { refetch, data: allCamp = [] } = useQuery({
+  const {
+    refetch,
+    data: allCamp = [],
+    isLoading,
+  } = useQuery({
     queryKey: ["findAllCamp", user?.email],
     queryFn: async () => {
       const res = await axiosPublic.get(`/findcamp?email=${user.email}`);
@@ -12,7 +16,7 @@ const useCamp = () => {
       return res.data;
     },
   });
-  return { allCamp, refetch };
+  return { allCamp, refetch, isLoading };
 };
 
 export default useCamp;
