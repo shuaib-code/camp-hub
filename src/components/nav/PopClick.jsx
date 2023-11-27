@@ -1,37 +1,42 @@
-import toast from "react-hot-toast";
 import useAuth from "../../hook/useAuth";
+import Swal from "sweetalert2";
 
-const PopClick = ({ pop, setPop, show }) => {
+const PopClick = ({ show }) => {
   const { user, logOut } = useAuth();
   if (!user) {
     return null;
   }
+  const logout = () => {
+    Swal.fire({
+      title: "Are you sure you want to Logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#16B364",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut().then(() => {
+          Swal.fire({
+            title: "Logged Out!",
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
   return (
     <div
-      className={`${
-        pop ? "border-2" : "border-0"
-      } relative border-primary rounded-full ${
+      className={`relative border-primary rounded-full ${
         show ? "hidden md:flex lg:flex" : "flex md:hidden lg:hidden"
       }`}
     >
       <img
-        onClick={() => setPop(!pop)}
+        onClick={logout}
         src={user?.photoURL}
         className="w-8 h-8 rounded-full object-cover"
         referrerPolicy="no-referrer"
       />
-      <div
-        className={`${
-          pop ? "absolute" : "hidden"
-        }  bg-gray-100 py-3 px-7 z-10 rounded-lg right-0 top-8`}
-      >
-        <button
-          className="btn-primary"
-          onClick={() => logOut().then(toast.success("Logout successfull."))}
-        >
-          Logout
-        </button>
-      </div>
     </div>
   );
 };

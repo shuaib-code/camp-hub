@@ -29,7 +29,7 @@ const Navbar = () => {
             <Logo />
           </div>
           <div className="flex gap-1 items-center">
-            <PopClick pop={pop} setPop={setPop} show={0} />
+            <PopClick show={0} />
             <button
               onClick={() => setShowNav(!showNav)}
               data-collapse-toggle="navbar-default"
@@ -87,7 +87,7 @@ const Navbar = () => {
                     </NavLink>
                   ))
                 : null}
-              <PopClick pop={pop} setPop={setPop} show={1} />
+              <PopClick show={1} />
               <div className="flex gap-3 mt-3">
                 {user ? null : (
                   <>
