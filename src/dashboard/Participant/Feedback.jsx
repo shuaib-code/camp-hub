@@ -15,6 +15,14 @@ const Feedback = () => {
       return res.data;
     },
   });
+  const { data: feedbackid, refetch } = useQuery({
+    queryKey: ["particimpantRegisteredpaymetHistroy"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/feedbackid?email=${user.email}`);
+
+      return res.data;
+    },
+  });
   if (registerd.isLoading) {
     return (
       <div className="py-12 w-full">
@@ -22,6 +30,7 @@ const Feedback = () => {
       </div>
     );
   }
+  console.log(feedbackid);
   const columns = [
     {
       name: "Camp Name",
@@ -45,10 +54,10 @@ const Feedback = () => {
       name: "Review",
       selector: (row) => row.id,
       cell: ({ pay, camp }) =>
-        pay == 1 ? (
-          <p>Paid</p>
+        feedbackid?.find((e) => e.campId == camp._id) ? (
+          <p>Reviewed</p>
         ) : (
-          <ReviewModal camp={camp} refech={registerd.refetch} />
+          <ReviewModal camp={camp} refetch={refetch} />
         ),
     },
     // {

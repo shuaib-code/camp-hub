@@ -38,7 +38,6 @@ const ReviewModal = ({ camp, refetch }) => {
       setSubmit(1);
       setModal(0);
       refetch();
-      navigate("/availableCamp");
     });
   };
 
@@ -138,7 +137,7 @@ const ReviewModal = ({ camp, refetch }) => {
                     <input
                       className="btn-primary"
                       type="submit"
-                      value={`${submit ? "Register" : "Registering..."}`}
+                      value={`${submit ? "Review" : "processing..."}`}
                     />
                   </div>
                 </form>
