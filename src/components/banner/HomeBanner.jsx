@@ -4,61 +4,40 @@ import { TypeAnimation } from "react-type-animation";
 
 const HomeBanner = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center gap-7">
-      <div className="space-y-9">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mt-10">
-          Let us worry about your <span className="text-primary"> Blog </span>,
-          focus on writing blog.
-        </h1>
-        <p className="text-base lg:text-xl font-medium text-gray-600">
-          <TypeAnimation
-            sequence={[
-              " A professional Blog page that comes with ready-to-post creative blog with one common goal in mind, help you share faster & beautiful blog with Bloggy PRO.",
-              1000,
-            ]}
-            speed={150}
-            repeat={Infinity}
-          />
-        </p>
-        <div className="space-x-2">
-          <Link to="/add">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="font-semibold px-3 border-2 border-primary py-1 bg-primary rounded-md text-white"
-            >
-              Write Blog
-            </motion.button>
-          </Link>
-          <Link to="/blogs">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="font-semibold px-3 border-2 border-primary py-1 text-primary rounded-md bg-transparent"
-            >
-              See All Blogs
-            </motion.button>
-          </Link>
+    <div className="bg-bottom bg-fixed h-96 bg-[url('https://img.freepik.com/free-photo/flat-lay-health-still-life-arrangement-with-copy-space_23-2148854064.jpg?w=1380&t=st=1701071677~exp=1701072277~hmac=7d217d1ecd2c49a38e6af255209bc63b552b2098a9521d2b453fc88ffdab2514')]">
+      <div className="flex items-center justify-center h-96 bg-[#0000006d]">
+        <div className="space-y-2">
+          <p className="text-white/80 font-medium text-lg italic text-center">
+            <TypeAnimation
+              sequence={[
+                // Same substring at the start will only be typed out once, initially
+                "Seamless.",
+                1000, // wait 1s before replacing "Mice" with "Hamsters"
+                "Smart.",
+                1000,
+                "Secure.",
+                1000,
+              ]}
+              wrapper="span"
+              speed={200}
+              style={{ fontSize: "16px", display: "inline-block" }}
+              repeat={Infinity}
+            />
+          </p>
+          <h1 className="text-3xl text-center text-white font-semibold">
+            Camp<span className="text-primary">HUB</span>: Transforming
+            Healthcare Event Management
+          </h1>
+          <p className="text-center text-gray-50">
+            Experience the Future of Medical Camps with CampHUB!
+          </p>
+          <div className="flex justify-center">
+            <Link to="/availableCamp">
+              <button className="btn-small">Explore CampHUB</button>
+            </Link>
+          </div>
         </div>
       </div>
-      {/* <div>
-        <motion.img
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: 0.5,
-            ease: [0, 0.71, 0.2, 1.01],
-            scale: {
-              type: "spring",
-              damping: 5,
-              stiffness: 150,
-              restDelta: 0.002,
-            },
-          }}
-          src="/banner.png"
-          alt=""
-        />
-      </div> */}
     </div>
   );
 };
