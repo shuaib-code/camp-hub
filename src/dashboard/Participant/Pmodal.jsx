@@ -4,7 +4,7 @@ import axiosPublic from "../../config/axios.config";
 import useAuth from "../../hook/useAuth";
 import { useForm } from "react-hook-form";
 
-const OpModal = ({ profile, refetch }) => {
+const Pmodal = ({ profile, refetch }) => {
   const [submit, setSubmit] = useState(1);
   const [modal, setModal] = useState(0);
   const { user } = useAuth();
@@ -18,7 +18,7 @@ const OpModal = ({ profile, refetch }) => {
     }
 
     if (profile._id) {
-      axiosPublic.put(`/op?id=${profile._id}`, data).then((r) => {
+      axiosPublic.put(`/p?id=${profile._id}`, data).then((r) => {
         r.data._id ? toast.success("Profile Updated") : null;
         reset();
         setSubmit(1);
@@ -31,7 +31,7 @@ const OpModal = ({ profile, refetch }) => {
     }
 
     if (!profile.email) {
-      axiosPublic.post(`/op`, data).then((r) => {
+      axiosPublic.post(`/p`, data).then((r) => {
         r.data._id ? toast.success("Profile Created") : null;
         reset();
         setSubmit(1);
@@ -131,19 +131,7 @@ const OpModal = ({ profile, refetch }) => {
                       />
                     </label>
                   ))}
-                  <label className="block">
-                    <span className="block text-sm font-medium text-slate-700">
-                      Success Story
-                    </span>
-                    <textarea
-                      rows="5"
-                      className="form-input"
-                      type="text"
-                      defaultValue={profile?.story}
-                      placeholder={`Enter your success histroy`}
-                      {...register("story", { required: true })}
-                    />
-                  </label>
+
                   <div className="grid pb-5 pt-4">
                     <input
                       className="btn-primary"
@@ -180,4 +168,4 @@ const OpModal = ({ profile, refetch }) => {
   );
 };
 
-export default OpModal;
+export default Pmodal;
