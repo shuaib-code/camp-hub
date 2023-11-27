@@ -3,14 +3,12 @@ import toast from "react-hot-toast";
 import axiosPublic from "../../config/axios.config";
 import useAuth from "../../hook/useAuth";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import moment from "moment/moment";
 
 const ReviewModal = ({ camp, refetch }) => {
   const { campName, _id } = camp;
   const [submit, setSubmit] = useState(1);
   const [modal, setModal] = useState(0);
-  const navigate = useNavigate();
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
