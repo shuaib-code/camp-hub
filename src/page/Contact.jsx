@@ -1,22 +1,4 @@
-import {
-  Circle,
-  FeatureGroup,
-  LayerGroup,
-  LayersControl,
-  MapContainer,
-  Marker,
-  Popup,
-  Rectangle,
-  TileLayer,
-  useMap,
-} from "react-leaflet";
 const Contact = () => {
-  const center = [51.505, -0.09];
-  const rectangle = [
-    [51.49, -0.08],
-    [51.5, -0.06],
-  ];
-
   return (
     <div className="px-4 max-w-3xl mx-auto pt-10 pb-7">
       <div
