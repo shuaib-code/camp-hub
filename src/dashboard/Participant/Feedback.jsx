@@ -126,7 +126,7 @@ const Feedback = () => {
   );
 
   return (
-    <div className="px-2">
+    <div className="px-2 mx-auto">
       <h1 className="form-title">Feedback and Ratings</h1>
       <h6 className="form-text">Total Reviewed camp: {feedbackid?.length}</h6>
       <div className="rounded-xl mt-7 border">

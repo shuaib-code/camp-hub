@@ -117,7 +117,7 @@ const PaymentHistory = () => {
   );
 
   return (
-    <div className="px-2">
+    <div className="px-2 mx-auto">
       <h1 className="form-title">Payment History</h1>
       <h6 className="form-text">Total Paid Camp: {registerd?.data?.length}</h6>
       <div className="rounded-xl mt-7 border">

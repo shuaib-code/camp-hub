@@ -23,6 +23,8 @@ import ManageCamp from "../dashboard/Organizer/ManageCamp";
 import ManageUpcomingCamp from "../dashboard/Organizer/ManageUpcomingCamp";
 import CampDetails from "../page/CampDetails";
 import ManageRegisteredCamp from "../dashboard/Organizer/ManageRegisteredCamp";
+import PrivateRoute from "./PrivateRoute";
+import OrganizerRoute from "./OrganizerRoute";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +38,11 @@ const router = createBrowserRouter([
       },
       {
         path: "availableCamp",
-        element: <AvailableCamp />,
+        element: (
+          <PrivateRoute>
+            <AvailableCamp />
+          </PrivateRoute>
+        ),
       },
       {
         path: "contact",
@@ -44,7 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "camp-details/:campId",
-        element: <CampDetails />,
+        element: (
+          <PrivateRoute>
+            <CampDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -58,11 +68,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "organizer-profile",
-        element: <Organizer />,
+        element: (
+          <OrganizerRoute>
+            <Organizer />
+          </OrganizerRoute>
+        ),
         children: [
           {
             index: true,

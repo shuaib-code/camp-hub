@@ -147,7 +147,7 @@ const RegisteredCamp = () => {
   );
 
   return (
-    <div className="px-2">
+    <div className="px-2 mx-auto">
       <h1 className="form-title">Registered Camp</h1>
       <h6 className="form-text">
         Total Registerd Camp: {registerd?.data?.length}

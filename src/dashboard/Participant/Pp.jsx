@@ -23,7 +23,7 @@ const Pp = () => {
   }
   let data = profile?.data.length ? profile.data[0] : [];
   return (
-    <div className="w-full">
+    <div className="w-full lg:px-28">
       <h1 className="form-title">Participant Profile</h1>
       <div className="w-full px-4 mt-5">
         <div className="block text-sm text-gray-500 bg-white border border-gray-200 rounded">

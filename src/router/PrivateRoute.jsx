@@ -1,6 +1,7 @@
 import useAuth from "../hook/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import Loader from "../components/Loader";
 
 const PrivateRoute = ({ children }) => {
   const { user, reloading } = useAuth();
@@ -16,7 +17,9 @@ const PrivateRoute = ({ children }) => {
               borderRadius: ["20%", "20%", "50%", "50%", "20%"],
             }}
           >
-            <div className="w-20 h-20 border-4 rounded-3xl border-primary"></div>
+            <div className="w-28 h-28 border-4 rounded-3xl border-primary">
+              <Loader />
+            </div>
           </motion.div>
         </div>
       </>

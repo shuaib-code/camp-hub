@@ -5,9 +5,11 @@ import Loader from "../../components/Loader";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import useAuth from "../../hook/useAuth";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
 const AddCamp = () => {
   const [submit, setSubmit] = useState(1);
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const professional = useQuery({
     queryKey: ["getProfessinalSelcet"],
@@ -27,7 +29,7 @@ const AddCamp = () => {
     } else {
       toast.error("Something went worng with image.");
     }
-    axiosPublic.post("/addcamp", data).then((r) => {
+    axiosSecure.post("/addcamp", data).then((r) => {
       r.data._id ? toast.success("Camp Added Successfully") : null;
       reset();
       setSubmit(1);

@@ -2,11 +2,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axiosPublic from "../config/axios.config";
 import useAuth from "../hook/useAuth";
+import useAllCamp from "../hook/useAllCamp";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const RegisterModal = ({ camp, refetch }) => {
   const { campName, date, time, fee, _id } = camp;
+  const { refetch: loadAgain } = useAllCamp();
   const [submit, setSubmit] = useState(1);
   const [modal, setModal] = useState(0);
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const RegisterModal = ({ camp, refetch }) => {
       setSubmit(1);
       setModal(0);
       refetch();
+      loadAgain();
       navigate("/availableCamp");
     });
   };
@@ -108,7 +111,7 @@ const RegisterModal = ({ camp, refetch }) => {
                     <span className="block text-sm font-medium text-slate-700">
                       Your Name
                     </span>
-                    <p className="form-input">{user.displayName}</p>
+                    <p className="form-input">{user?.displayName}</p>
                   </label>
                   {formData.map((e) => (
                     <label className="block" key={e.field}>
