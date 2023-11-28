@@ -26,12 +26,8 @@ const AvailableCampCard = ({ camp }) => {
     );
   }
   return (
-    <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <img
-        className="rounded-t-lg object-cover w-full h-60"
-        src={image}
-        alt=""
-      />
+    <div className=" bg-dash rounded-lg shadow-md">
+      <img className="rounded-lg object-cover w-full h-60" src={image} alt="" />
 
       <div className="p-5">
         <h2 className="text-lg font-semibold">{campName}</h2>

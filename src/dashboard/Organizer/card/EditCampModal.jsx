@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hook/useAuth";
 import useCamp from "../../../hook/useCamp";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const EditCampModal = ({ camp }) => {
+  const axiosSecure = useAxiosSecure();
   const { refetch } = useCamp();
   const { campName, date, location, des, time, target, service, fee, _id } =
     camp;
@@ -32,7 +34,7 @@ const EditCampModal = ({ camp }) => {
     } else {
       toast.error("Something went worng with image.");
     }
-    axiosPublic.patch(`/updatecamp?id=${_id}`, data).then((r) => {
+    axiosSecure.patch(`/updatecamp?id=${_id}`, data).then((r) => {
       r.data._id ? toast.success("Camp Added Successfully") : null;
       reset();
       setSubmit(1);

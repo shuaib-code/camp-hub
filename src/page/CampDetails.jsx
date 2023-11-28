@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axiosPublic from "../config/axios.config";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../components/Loader";
 import RegisterModal from "../components/RegisterModal";
+import useRole from "../hook/useRole";
 
 const CampDetails = () => {
+  const role = useRole();
   const { campId } = useParams();
   const camp = useQuery({
     queryKey: ["CampDetails"],
@@ -59,7 +61,16 @@ const CampDetails = () => {
         <p className="pt-2">{des}</p>
       </div>
       <div className="p-4 flex justify-end items-center gap-2">
-        <RegisterModal camp={camp.data[0]} refetch={count.refetch} />
+        {role === "participant" ? (
+          <RegisterModal camp={camp.data[0]} refetch={count.refetch} />
+        ) : (
+          <Link
+            className="btn-primary"
+            to={`/dashboard/${role}-profile/profile`}
+          >
+            Dashboard
+          </Link>
+        )}
       </div>
     </div>
   );

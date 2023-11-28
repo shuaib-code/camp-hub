@@ -1,10 +1,11 @@
 import Swal from "sweetalert2";
-import axiosPublic from "../../../config/axios.config";
 import useCamp from "../../../hook/useCamp";
 import EditCampModal from "./EditCampModal";
 import { MdDelete } from "react-icons/md";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const Manage = ({ camp, i }) => {
+  const axiosSecure = useAxiosSecure();
   const { refetch } = useCamp();
   const { campName, date, _id } = camp;
   const handleDelete = () => {
@@ -18,7 +19,7 @@ const Manage = ({ camp, i }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic.delete(`/deletecamp?id=${_id}`).then(() => refetch());
+        axiosSecure.delete(`/deletecamp?id=${_id}`).then(() => refetch());
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",

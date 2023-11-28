@@ -12,7 +12,7 @@ const Footer = () => {
     // { name: "Dashboard", path: "dashboard" },
   ];
   return (
-    <footer className="bg-white rounded-lg border-t font-slab max-w-5xl mx-auto">
+    <footer className="bg-dash rounded-lg border-t font-slab max-w-5xl mx-auto">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
