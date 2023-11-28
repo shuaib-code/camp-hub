@@ -47,7 +47,7 @@ const AvailableCampCard = ({ camp }) => {
             ) : null
           ) : null}
           <Link to={`/camp-details/${_id}`}>
-            <button className="btn-small bg-sky-600">Details</button>
+            <button className="btn-small">Details</button>
           </Link>
         </div>
       </div>

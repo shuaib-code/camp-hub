@@ -12,7 +12,7 @@ const AvailableCamp = () => {
     );
   }
   return (
-    <div>
+    <div className="pb-6">
       <h1 className="form-title text-black">Available Camp</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-2 mt-8">
         {allCamp.map((e) => (
