@@ -25,6 +25,8 @@ import CampDetails from "../page/CampDetails";
 import ManageRegisteredCamp from "../dashboard/Organizer/ManageRegisteredCamp";
 import PrivateRoute from "./PrivateRoute";
 import OrganizerRoute from "./OrganizerRoute";
+import ParticipantRoute from "./ParticipantRoute";
+import ProfessionalRoute from "./ProfessionalRoute";
 
 const router = createBrowserRouter([
   {
@@ -111,7 +113,11 @@ const router = createBrowserRouter([
       },
       {
         path: "participant-profile",
-        element: <Participant />,
+        element: (
+          <ParticipantRoute>
+            <Participant />
+          </ParticipantRoute>
+        ),
         children: [
           {
             index: true,
@@ -134,7 +140,11 @@ const router = createBrowserRouter([
       },
       {
         path: "professional-profile",
-        element: <Professional />,
+        element: (
+          <ProfessionalRoute>
+            <Professional />
+          </ProfessionalRoute>
+        ),
         children: [
           {
             index: true,
