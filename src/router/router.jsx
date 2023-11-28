@@ -27,6 +27,7 @@ import PrivateRoute from "./PrivateRoute";
 import OrganizerRoute from "./OrganizerRoute";
 import ParticipantRoute from "./ParticipantRoute";
 import ProfessionalRoute from "./ProfessionalRoute";
+import UpcomingCampDetails from "../page/UpcomingCampDetails";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CampDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "upcoming-camp-details/:campId",
+        element: (
+          <PrivateRoute>
+            <UpcomingCampDetails />
           </PrivateRoute>
         ),
       },
