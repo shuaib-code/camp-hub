@@ -31,13 +31,24 @@ const AvailableCampCard = ({ camp }) => {
 
       <div className="p-5">
         <h2 className="text-lg font-semibold">{campName}</h2>
-        <p>Camp Fee: {fee}</p>
-        <p>Date: {date}</p>
-        <p>Time: {time}</p>
-        <p>Audience: {target}</p>
-        <p>Venue: {location}</p>
         <p>
-          Participant:{" "}
+          {" "}
+          <span className="font-semibold">Camp Fee:</span> {fee}
+        </p>
+        <p>
+          <span className="font-semibold">Date:</span> {date}
+        </p>
+        <p>
+          <span className="font-semibold">Time:</span> {time}
+        </p>
+        <p>
+          <span className="font-semibold">Audience:</span> {target}
+        </p>
+        <p>
+          <span className="font-semibold">Venue:</span> {location}
+        </p>
+        <p>
+          <span className="font-semibold">Participant:</span>{" "}
           <span className="font-semibold">{camp?.count?.length}</span>
         </p>
         <div className="mt-4 flex justify-end items-center gap-2">

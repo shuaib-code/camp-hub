@@ -4,6 +4,12 @@ Transforming Healthcare Event Management: Secure, Seamless, Smart
 
 ## [Live link](https://camp-hubs.web.app/)
 
+### Credentials
+
+#### Email: organizer@admin.com
+
+#### Pass: !1Admin
+
 ## Features
 
 - Organizer can create, delete, update any camp they have added.

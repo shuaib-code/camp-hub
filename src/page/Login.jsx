@@ -14,15 +14,15 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    // const specialCharactersPattern = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+    const specialCharactersPattern = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
 
-    // if (!specialCharactersPattern.test(password)) {
-    //   toast.error("Password should contain al least 1 special caracter");
-    // } else if (!/[A-Z]/.test(password)) {
-    //   toast.error("Password should have at least 1 Uppercase");
-    // } else if (!/[0-9]/.test(password)) {
-    //   toast.error("Password should contain at least 1 numeric alpabet");
-    // }
+    if (!specialCharactersPattern.test(password)) {
+      toast.error("Password should contain al least 1 special caracter");
+    } else if (!/[A-Z]/.test(password)) {
+      toast.error("Password should have at least 1 Uppercase");
+    } else if (!/[0-9]/.test(password)) {
+      toast.error("Password should contain at least 1 numeric alpabet");
+    }
     withEmail(email, password)
       .then(() => {
         toast.success("Log in successfull");
